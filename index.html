@@ -755,7 +755,7 @@
       <div class="drawer-kicker">Codex · index des repères</div>
       <h2 id="index-title">Monde publié</h2>
       <div class="index-list" id="index-list"></div>
-      <p class="drawer-note">Les zones grisées existent sur la carte validée, mais leur fiche reste fermée tant que leur canon n'est pas suffisamment stabilisé.</p>
+      <p class="drawer-note">Les repères marqués « à développer » ont un contexte canonique, mais leur dossier détaillé reste volontairement ouvert.</p>
     </aside>
   </main>
 
@@ -767,7 +767,7 @@
           meta:"Lieu canon · Capitale maritime",
           label:"Capitale maritime",
           lead:"Une capitale plus vieille que les dynasties qui la gouvernent, accumulée en couches autour d’une immense baie.",
-          body:"Dense, populaire, bruyante et profondément tournée vers la mer, Veyren est le cœur de la vieille puissance maritime. Son véritable symbole de puissance n’est pas le palais mais l’Arsenal. Le Courant y fait partie de la vie quotidienne.",
+          body:"Dense, populaire, bruyante et profondément tournée vers la mer, Veyren est le cœur de la vieille puissance maritime. Son véritable symbole n’est pas le palais mais l’Arsenal, une ville dans la ville où l’on construit, répare et arme les flottes. Le Courant y sert aux nouvelles, aux ordres, aux cargaisons et aux messages privés ; depuis les hauteurs, la Couronne reste visible à l’horizon.",
           x:40,y:68,kind:"city",published:true,number:"01",index:"A—01"
         },
         veyre: {
@@ -775,7 +775,7 @@
           meta:"Lieu canon · Frontière de la Couronne",
           label:"Frontière maritime",
           lead:"Une cité maritime ancienne bâtie au contact des falaises, des marées, des vents violents et de la Couronne.",
-          body:"Veyre vit avec la Couronne depuis assez longtemps pour avoir transformé le danger en habitudes. Au début du récit, son phare s’éteint. Le gardien disparaît. Le mécanisme continue pourtant de fonctionner sous la falaise.",
+          body:"Veyre vit avec la Couronne depuis assez longtemps pour avoir transformé le danger en habitudes : marché à marée basse du Bassin des Noyés, Courses du Bord et Nuits de Couronne. Au début du récit, son phare s’éteint. Le gardien disparaît. Le mécanisme continue pourtant de fonctionner sous la falaise.",
           x:32,y:74,kind:"city",published:true,number:"02",index:"A—02"
         },
         marches: {
@@ -783,7 +783,7 @@
           meta:"Lieu canon · Archipels occidentaux",
           label:"Archipels occidentaux",
           lead:"Là où l’autorité des grands États devient intermittente et où la civilisation peut s’arrêter quelques rues après le port.",
-          body:"Ports improvisés, petites colonies, compagnies privées, contrebandiers, mercenaires et communautés isolées composent une frontière maritime fragmentée.",
+          body:"Ports improvisés, petites colonies, compagnies privées, contrebandiers, mercenaires et communautés isolées composent une frontière maritime fragmentée. Ici, l’autorité des grands États peut s’arrêter quelques rues après le port.",
           x:8,y:52,kind:"place",published:true,number:"03",index:"A—03"
         },
         couronne: {
@@ -791,7 +791,7 @@
           meta:"Mystère canon · Limite du monde navigable",
           label:"Limite du monde connu",
           lead:"Une ceinture de brumes et de tempêtes marque la limite supposée du monde navigable.",
-          body:"Sa nature exacte reste inconnue. Le Codex s’arrête volontairement ici : ce qui existe au-delà n’est pas publié.",
+          body:"Des phares monumentaux jalonnent cette frontière maritime et sécurisent officiellement les routes. Sa nature exacte reste inconnue. Le Codex s’arrête volontairement ici : ce qui existe au-delà n’est pas publié.",
           x:7,y:65,kind:"mystery",published:true,number:"04",index:"A—04"
         },
         ile: {
@@ -799,32 +799,32 @@
           meta:"Événement canon · Déclencheur",
           label:"Événement déclencheur",
           lead:"Au matin suivant l’extinction du phare de Veyre, une île inconnue apparaît à l’horizon.",
-          body:"Elle n’existait sur aucune carte connue. Son apparition transforme une panne locale en question beaucoup plus large.",
+          body:"Elle n’existait sur aucune carte connue. Elle apparaît à l’horizon au matin qui suit l’extinction du phare de Veyre ; son apparition transforme une panne locale en question beaucoup plus large.",
           x:87,y:82,kind:"mystery",published:true,number:"05",index:"A—05"
         },
         nord: {
           name:"Puissance industrielle du Nord",
-          meta:"Présence cartographique · Fiche non publiée",
-          label:"Fiche en développement",
-          lead:"Cette puissance existe sur la carte validée, mais son identité détaillée n’est pas encore publiée dans le Codex.",
-          body:"Les éléments en développement restent volontairement hors de cette édition.",
-          x:45,y:8,kind:"locked",published:false,number:"06",index:"A—06"
+          meta:"Puissance · Nord du continent principal",
+          label:"Chantiers du Nord",
+          lead:"Une puissance industrielle récente bouleverse l’équilibre naval du monde connu.",
+          body:"Ses chantiers construisent plus vite et expérimentent de nouvelles méthodes. Elle n’a pas le prestige de Veyren, mais menace directement sa supériorité technique et navale.",
+          x:45,y:8,kind:"locked",published:true,status:"Repère de situation · canon publié",number:"06",index:"A—06"
         },
         republique: {
           name:"République marchande de l’Est",
-          meta:"Présence cartographique · Fiche non publiée",
-          label:"Fiche en développement",
-          lead:"Cette puissance existe sur la carte validée, mais sa fiche reste fermée tant que son canon n’est pas suffisamment stabilisé.",
-          body:"Le Codex n’expose pas les variantes de travail.",
-          x:68,y:50,kind:"locked",published:false,number:"07",index:"A—07"
+          meta:"Puissance · Façade orientale",
+          label:"Crédit et routes",
+          lead:"Une république marchande immensément riche contrôle les dépendances plutôt que les territoires.",
+          body:"Elle agit par les prêts, les approvisionnements et l’accès aux routes, davantage que par la conquête directe. Sa richesse lui permet de devenir indispensable tout en laissant les rivalités ouvertes.",
+          x:68,y:50,kind:"locked",published:true,status:"Repère de situation · canon publié",number:"07",index:"A—07"
         },
         odren: {
           name:"Odren",
-          meta:"Présence cartographique · Fiche non publiée",
-          label:"Horizon lointain",
-          lead:"Odren appartient à une aire maritime plus lointaine. Sa présence sur la carte est validée ; sa fiche complète n’est pas encore publiée.",
-          body:"Les détails d’auteur restent dans l’atelier tant qu’une publication explicite du Canon n’a pas été faite.",
-          x:87,y:20,kind:"locked",published:false,number:"08",index:"A—08"
+          meta:"Puissance extérieure · détails à développer",
+          label:"Autre aire maritime",
+          lead:"Odren est un empire maritime séparé du continent principal, dans une autre aire du monde connu.",
+          body:"Téras reste sa capitale historique, tandis que la Couronne de Sillage porte une partie du gouvernement impérial. La direction est validée ; l’origine de ce peuple, sa parenté avec les Anciens et sa magie restent à développer.",
+          x:87,y:20,kind:"locked",published:true,status:"Direction validée · à développer",number:"08",index:"A—08"
         }
       };
 
@@ -893,7 +893,7 @@
         detailIndex.textContent = point.index;
         folioLabel.textContent = point.label;
         folioArt.style.backgroundPosition = point.x + "% " + point.y + "%";
-        detailStatus.innerHTML = point.published ? "<span>Statut</span><strong>Canon publié</strong>" : "<span>Statut</span><strong>Fiche fermée</strong>";
+        detailStatus.innerHTML = "<span>Statut</span><strong>" + (point.status || (point.published ? "Canon publié" : "Fiche fermée")) + "</strong>";
         dossier.classList.add("is-open");
         dossier.setAttribute("aria-hidden","false");
         drawer.classList.remove("is-open");
@@ -979,7 +979,7 @@
         var item = document.createElement("button");
         item.type = "button";
         item.className = "index-item";
-        item.innerHTML = '<span class="index-symbol" aria-hidden="true">' + point.number + '</span><span class="index-copy"><span class="index-name">' + point.name + '</span><span class="index-state">' + (point.published ? "Fiche publiée" : "Fiche non publiée") + "</span></span>";
+        item.innerHTML = '<span class="index-symbol" aria-hidden="true">' + point.number + '</span><span class="index-copy"><span class="index-name">' + point.name + '</span><span class="index-state">' + (point.status || (point.published ? "Fiche publiée" : "Fiche non publiée")) + "</span></span>";
         item.addEventListener("click",function(){openPoint(key,true)});
         indexList.appendChild(item);
       });

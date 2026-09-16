@@ -219,7 +219,7 @@
       left:50%;
       top:50%;
       width:min(1400px,calc(100% - 26px),130vh);
-      aspect-ratio:1513/1040;
+      aspect-ratio:3/2;
       transform-origin:center;
       user-select:none;
       will-change:transform;
@@ -446,7 +446,7 @@
       overflow:hidden;
       border:1px solid rgba(62,37,18,.52);
       background-color:#a98c5d;
-      background-image:url("/world-map-textless.jpg");
+      background-image:url("/world-map-atlas.webp");
       background-repeat:no-repeat;
       background-size:310% auto;
       background-position:40% 61%;
@@ -691,30 +691,30 @@
       <section class="map-frame" aria-label="Carte interactive du monde connu">
         <div id="stage">
           <div id="scene">
-            <img src="/world-map-textless.jpg" alt="Carte illustrée sans texte du monde connu de La Couronne des Brumes">
+            <img src="/world-map-atlas.webp" alt="Carte illustrée sans texte du monde connu de La Couronne des Brumes">
 
-            <button class="marker city" style="--x:40%;--y:61%" data-point="veyren" type="button" aria-label="Ouvrir la fiche de Veyren" aria-pressed="false">
+            <button class="marker city" style="--x:40%;--y:68%" data-point="veyren" type="button" aria-label="Ouvrir la fiche de Veyren" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Veyren</span>
             </button>
             <button class="marker city" style="--x:32%;--y:74%" data-point="veyre" type="button" aria-label="Ouvrir la fiche de Veyre" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Veyre</span>
             </button>
-            <button class="marker place" style="--x:20%;--y:38%" data-point="marches" type="button" aria-label="Ouvrir la fiche des Marches" aria-pressed="false">
+            <button class="marker place" style="--x:8%;--y:52%" data-point="marches" type="button" aria-label="Ouvrir la fiche des Marches" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Les Marches</span>
             </button>
-            <button class="marker mystery" style="--x:12%;--y:62%" data-point="couronne" type="button" aria-label="Ouvrir la fiche de la Couronne" aria-pressed="false">
+            <button class="marker mystery" style="--x:7%;--y:65%" data-point="couronne" type="button" aria-label="Ouvrir la fiche de la Couronne" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">La Couronne</span>
             </button>
-            <button class="marker mystery" style="--x:24%;--y:80%" data-point="ile" type="button" aria-label="Ouvrir la fiche de l'île apparue" aria-pressed="false">
+            <button class="marker mystery" style="--x:87%;--y:82%" data-point="ile" type="button" aria-label="Ouvrir la fiche de l'île apparue" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Île apparue</span>
             </button>
-            <button class="marker locked" style="--x:54.5%;--y:21%" data-point="nord" type="button" aria-label="Nord industriel, fiche non publiée" aria-pressed="false">
+            <button class="marker locked" style="--x:45%;--y:8%" data-point="nord" type="button" aria-label="Nord industriel, fiche non publiée" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Nord industriel</span>
             </button>
-            <button class="marker locked" style="--x:75%;--y:43%" data-point="republique" type="button" aria-label="République marchande, fiche non publiée" aria-pressed="false">
+            <button class="marker locked" style="--x:68%;--y:50%" data-point="republique" type="button" aria-label="République marchande, fiche non publiée" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">République marchande</span>
             </button>
-            <button class="marker locked" style="--x:95%;--y:30%" data-point="odren" type="button" aria-label="Odren, fiche non publiée" aria-pressed="false">
+            <button class="marker locked" style="--x:87%;--y:20%" data-point="odren" type="button" aria-label="Odren, fiche non publiée" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Odren</span>
             </button>
           </div>
@@ -768,7 +768,7 @@
           label:"Capitale maritime",
           lead:"Une capitale plus vieille que les dynasties qui la gouvernent, accumulée en couches autour d’une immense baie.",
           body:"Dense, populaire, bruyante et profondément tournée vers la mer, Veyren est le cœur de la vieille puissance maritime. Son véritable symbole de puissance n’est pas le palais mais l’Arsenal. Le Courant y fait partie de la vie quotidienne.",
-          x:40,y:61,kind:"city",published:true,number:"01",index:"A—01"
+          x:40,y:68,kind:"city",published:true,number:"01",index:"A—01"
         },
         veyre: {
           name:"Veyre",
@@ -784,7 +784,7 @@
           label:"Archipels occidentaux",
           lead:"Là où l’autorité des grands États devient intermittente et où la civilisation peut s’arrêter quelques rues après le port.",
           body:"Ports improvisés, petites colonies, compagnies privées, contrebandiers, mercenaires et communautés isolées composent une frontière maritime fragmentée.",
-          x:20,y:38,kind:"place",published:true,number:"03",index:"A—03"
+          x:8,y:52,kind:"place",published:true,number:"03",index:"A—03"
         },
         couronne: {
           name:"La Couronne",
@@ -792,7 +792,7 @@
           label:"Limite du monde connu",
           lead:"Une ceinture de brumes et de tempêtes marque la limite supposée du monde navigable.",
           body:"Sa nature exacte reste inconnue. Le Codex s’arrête volontairement ici : ce qui existe au-delà n’est pas publié.",
-          x:12,y:62,kind:"mystery",published:true,number:"04",index:"A—04"
+          x:7,y:65,kind:"mystery",published:true,number:"04",index:"A—04"
         },
         ile: {
           name:"L’île apparue",
@@ -800,7 +800,7 @@
           label:"Événement déclencheur",
           lead:"Au matin suivant l’extinction du phare de Veyre, une île inconnue apparaît à l’horizon.",
           body:"Elle n’existait sur aucune carte connue. Son apparition transforme une panne locale en question beaucoup plus large.",
-          x:24,y:80,kind:"mystery",published:true,number:"05",index:"A—05"
+          x:87,y:82,kind:"mystery",published:true,number:"05",index:"A—05"
         },
         nord: {
           name:"Puissance industrielle du Nord",
@@ -808,7 +808,7 @@
           label:"Fiche en développement",
           lead:"Cette puissance existe sur la carte validée, mais son identité détaillée n’est pas encore publiée dans le Codex.",
           body:"Les éléments en développement restent volontairement hors de cette édition.",
-          x:54.5,y:21,kind:"locked",published:false,number:"06",index:"A—06"
+          x:45,y:8,kind:"locked",published:false,number:"06",index:"A—06"
         },
         republique: {
           name:"République marchande de l’Est",
@@ -816,7 +816,7 @@
           label:"Fiche en développement",
           lead:"Cette puissance existe sur la carte validée, mais sa fiche reste fermée tant que son canon n’est pas suffisamment stabilisé.",
           body:"Le Codex n’expose pas les variantes de travail.",
-          x:75,y:43,kind:"locked",published:false,number:"07",index:"A—07"
+          x:68,y:50,kind:"locked",published:false,number:"07",index:"A—07"
         },
         odren: {
           name:"Odren",
@@ -824,7 +824,7 @@
           label:"Horizon lointain",
           lead:"Odren appartient à une aire maritime plus lointaine. Sa présence sur la carte est validée ; sa fiche complète n’est pas encore publiée.",
           body:"Les détails d’auteur restent dans l’atelier tant qu’une publication explicite du Canon n’a pas été faite.",
-          x:95,y:30,kind:"locked",published:false,number:"08",index:"A—08"
+          x:87,y:20,kind:"locked",published:false,number:"08",index:"A—08"
         }
       };
 

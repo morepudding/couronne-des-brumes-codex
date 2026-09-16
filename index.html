@@ -26,7 +26,7 @@
     #scene img{width:100%;height:100%;display:block;object-fit:contain;filter:saturate(.98) contrast(1.02) brightness(1.08);box-shadow:0 18px 70px #0008}
     .m{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);z-index:8;display:flex;align-items:center;gap:8px;border:0;background:0;color:#201b14;padding:9px;cursor:pointer}
     .m i{width:13px;height:13px;border-radius:50%;background:#754a28;border:2px solid #ead4a3;box-shadow:0 0 0 4px #301e1159,0 2px 10px #0008}
-    .m span{font-weight:700;white-space:nowrap;background:#eadbb8e8;border:1px solid #3e2b1966;padding:4px 8px;border-radius:3px;box-shadow:0 2px 8px #0003}
+    .m span{display:none;font-weight:700;white-space:nowrap;background:#eadbb8e8;border:1px solid #3e2b1966;padding:4px 8px;border-radius:3px;box-shadow:0 2px 8px #0003}.m:hover span,.m:focus-visible span{display:block}
     .m.lock{opacity:.52}.m.lock i{background:#5c554b;border-style:dashed}.m.myst i{background:#475052;border-color:#cad1cc}.m:hover i{transform:scale(1.35)}
     .hint{position:fixed;z-index:20;left:50%;bottom:20px;transform:translateX(-50%);font:11px Arial;background:#0d0c0aa8;border:1px solid #dcc59d24;padding:8px 12px;color:#efe4cfbd;backdrop-filter:blur(7px)}
     aside{position:fixed;z-index:40;top:0;bottom:0;width:min(430px,92vw);background:#12100ced;border-left:1px solid #dcc59d3d;backdrop-filter:blur(14px);transition:transform .28s ease;overflow:auto}

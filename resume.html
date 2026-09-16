@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11100d">
+  <title>Le monde en une page — La Couronne des Brumes</title>
+  <style>
+    :root{--bg:#11100d;--panel:#191612;--panel2:#211c16;--ink:#efe4cf;--muted:#c6b9a5;--gold:#c9a66b;--line:#dcc59d3d;--blue:#263a40;}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 82% 8%,#35434844,transparent 34%),var(--bg);color:var(--ink);font-family:Georgia,serif;line-height:1.6}
+    a{color:inherit}
+    .top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(18px,4vw,54px);background:#0d0c0bdd;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+    .brand{font:10px Arial,sans-serif;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+    .back{font:13px Arial,sans-serif;text-decoration:none;color:var(--muted);border:1px solid var(--line);padding:8px 12px;border-radius:3px}
+    .back:hover{color:var(--ink);border-color:#c9a66b88}
+    main{max-width:1180px;margin:0 auto;padding:clamp(48px,8vw,100px) clamp(18px,4vw,54px) 72px}
+    .eyebrow{font:11px Arial,sans-serif;letter-spacing:.23em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+    h1{font-size:clamp(42px,7vw,86px);font-weight:500;line-height:.98;margin:0;max-width:850px}
+    .intro{font-size:clamp(19px,2.2vw,27px);line-height:1.4;color:#e3d6bf;max-width:880px;margin:28px 0 0}
+    .rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.5;margin:56px 0 28px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
+    .card{grid-column:span 4;background:linear-gradient(145deg,#ffffff08,transparent),var(--panel);border:1px solid var(--line);padding:24px;min-height:235px}
+    .card.wide{grid-column:span 8}
+    .card.full{grid-column:1/-1}
+    .num{font:11px Arial,sans-serif;color:var(--gold);letter-spacing:.2em}
+    h2{font-size:27px;line-height:1.1;font-weight:500;margin:11px 0 12px}
+    h3{font-size:18px;font-weight:500;color:#e6d2aa;margin:0 0 8px}
+    p{margin:0 0 13px;color:var(--muted)}
+    .card p:last-child{margin-bottom:0}
+    .quote{font-size:25px;line-height:1.35;color:var(--ink);border-left:2px solid var(--gold);padding:4px 0 4px 22px;margin:18px 0 0}
+    .columns{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+    .columns ul{padding-left:20px;margin:8px 0 0;color:var(--muted)}
+    .columns li{margin:8px 0}
+    .pill{display:inline-block;font:10px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid #c9a66b66;padding:5px 8px;margin:0 6px 7px 0}
+    .footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font:12px Arial,sans-serif;color:#9e927f}
+    @media(max-width:820px){.card,.card.wide{grid-column:1/-1}.columns{grid-template-columns:1fr}.top{position:relative}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">Codex · dossier de synthèse</div>
+    <a class="back" href="/">← Revenir à la carte</a>
+  </header>
+  <main>
+    <p class="eyebrow">La Couronne des Brumes</p>
+    <h1>Le monde en une page</h1>
+    <p class="intro">Un monde de fantasy maritime vit depuis des siècles derrière une immense ceinture de brumes et de tempêtes appelée la Couronne. Les grandes puissances dépendent de la mer, des routes et d’un réseau de phares monumentaux relié à un phénomène invisible appelé le Courant.</p>
+
+    <div class="rule"></div>
+
+    <section class="grid" aria-label="Résumé de l'univers">
+      <article class="card wide">
+        <span class="num">01 · Le principe</span>
+        <h2>Une civilisation construite autour de la mer</h2>
+        <p>Les sociétés modernes savent entretenir, exploiter et améliorer leur infrastructure maritime. Elles savent réparer les composants locaux, mais elles n’en comprennent plus l’architecture globale.</p>
+        <p>Les phares servent officiellement à la navigation et à la sécurité. Leur rôle réel, leur organisation d’ensemble et ce qui les relie au Courant restent plus anciens et plus vastes que les institutions qui les administrent aujourd’hui.</p>
+      </article>
+      <article class="card">
+        <span class="num">02 · La frontière</span>
+        <h2>La Couronne</h2>
+        <p>Une ceinture de brumes et de tempêtes marque la limite supposée du monde navigable. Pendant des siècles, personne n’a pu la traverser durablement.</p>
+        <div class="pill">Mystère central</div><div class="pill">Limite du monde connu</div>
+      </article>
+      <article class="card">
+        <span class="num">03 · Le système</span>
+        <h2>Le Courant</h2>
+        <p>Un phénomène invisible parcourt les routes, les phares et les grandes maisons qui transmettent les nouvelles. Tout le monde dépend de lui ; presque personne ne possède la carte complète de son fonctionnement.</p>
+      </article>
+      <article class="card full">
+        <span class="num">04 · Le moment du récit</span>
+        <h2>La panne qui n’en est pas une</h2>
+        <div class="columns">
+          <div>
+            <p>À la fin d’un règne, la Transmission du Premier Gardien échoue pour la première fois en secret. Peu après, le phare de Veyre s’éteint et son gardien disparaît.</p>
+            <p>Le mécanisme continue pourtant de fonctionner sous la falaise. Au matin, une île qui n’existait sur aucune carte apparaît à l’horizon.</p>
+          </div>
+          <div>
+            <p class="quote">Le problème paraît local et technique. Il ne l’est pas.</p>
+            <p>Le monde ne s’effondre pas immédiatement. Les navires continuent de partir, les ports travaillent et les administrations minimisent les signes pendant que la vérité change d’échelle.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card wide">
+        <span class="num">05 · L'équilibre politique</span>
+        <h2>Une paix déjà en train de pourrir</h2>
+        <p>Depuis environ cinquante ans, aucune guerre majeure n’a opposé les grandes puissances. Le commerce maritime a explosé, les ports ont grandi et les chantiers navals construisent des bâtiments toujours plus ambitieux.</p>
+        <p>Cette Grande Accalmie touche à sa fin : les puissances se réarment, les institutions anciennes s’essoufflent et chacun prépare déjà la crise suivante.</p>
+      </article>
+      <article class="card">
+        <span class="num">06 · Le centre ancien</span>
+        <h2>Veyren et la vieille puissance maritime</h2>
+        <p>Veyren est une capitale portuaire très ancienne, construite en couches autour d’une immense baie. Son souverain vieillissant porte le titre de Premier Gardien.</p>
+        <p>La monarchie vient d’une fonction pragmatique de coordination du réseau maritime, recouverte au fil des siècles par les traditions dynastiques et les symboles sacrés.</p>
+      </article>
+      <article class="card full">
+        <span class="num">07 · Les forces en présence</span>
+        <div class="columns">
+          <div>
+            <h3>À l’est · la république marchande</h3>
+            <p>Une puissance immensément riche qui contrôle davantage par le crédit, les approvisionnements et les routes que par la conquête directe.</p>
+            <h3>Au nord · la puissance industrielle</h3>
+            <p>Une puissance récente dont les chantiers construisent plus vite et expérimentent de nouvelles méthodes, menaçant la supériorité navale traditionnelle.</p>
+          </div>
+          <div>
+            <h3>À l’ouest · les Marches</h3>
+            <p>Des archipels où l’autorité des grands États devient intermittente : ports improvisés, colonies, compagnies privées, contrebandiers, mercenaires et communautés isolées.</p>
+            <h3>Dans la monarchie · trois réponses</h3>
+            <p>Les traditionalistes veulent retrouver les savoirs perdus ; les modernistes veulent reconstruire un système compris et maîtrisé ; un troisième courant pense que les phares ne devraient peut-être surtout pas être rallumés.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card wide">
+        <span class="num">08 · Les premiers signes</span>
+        <h2>Le monde commence à répondre</h2>
+        <p>Des navires de pêche disparaissent. Certains courants changent. Des épaves portent des matériaux inconnus. Des marins parlent de lumières derrière la brume.</p>
+        <p>La réaction normale n’est pas la panique : ces événements sont dispersés et faciles à attribuer aux tempêtes, aux erreurs de navigation ou aux histoires de marins. Quelques administrations et familles anciennes savent pourtant davantage qu’elles ne le disent.</p>
+      </article>
+      <article class="card">
+        <span class="num">09 · La question ouverte</span>
+        <h2>Qu’est-ce qui se réveille ?</h2>
+        <p>Le réseau est-il une infrastructure, une mémoire, une architecture de contrôle — ou quelque chose qui possède encore sa propre volonté ?</p>
+        <p>Les réponses restent volontairement ouvertes. La carte montre le monde publié ; le brouillard garde le reste.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Canon de travail · synthèse de l’univers</span>
+      <a href="/">Ouvrir le Codex cartographique →</a>
+    </footer>
+  </main>
+</body>
+</html>

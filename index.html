@@ -3,106 +3,989 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#11100d">
-  <title>La Couronne des Brumes — Codex</title>
+  <meta name="theme-color" content="#0b0a09">
+  <title>Atlas — La Couronne des Brumes</title>
   <style>
+    :root{
+      --night:#0b0a09;
+      --night-2:#12100d;
+      --ink:#f0e6d3;
+      --muted:#b6aa97;
+      --gold:#c8a263;
+      --gold-soft:#e0c997;
+      --line:rgba(224,201,151,.24);
+      --paper:#e5cf9f;
+      --paper-light:#f1dfb7;
+      --paper-ink:#251a10;
+      --blue:#516d73;
+    }
     *{box-sizing:border-box}
-    html,body{margin:0;width:100%;height:100%;background:#11100d;color:#efe4cf;font-family:Georgia,serif;overflow:hidden}
-    button{font:inherit}
-    a{font:inherit}
-    #app{width:100%;height:100%;position:relative;background:#17130e}
-    header{position:fixed;z-index:30;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:20px 24px;background:linear-gradient(#090806d9,transparent);pointer-events:none}
-    header>*{pointer-events:auto}
-    .brand{border:0;background:0;color:#efe4cf;text-align:left;cursor:pointer}
-    .k{display:block;font:10px Arial;letter-spacing:.25em;color:#c9a66b;margin-bottom:5px}
-    .title{font-size:clamp(21px,2.4vw,36px);text-shadow:0 2px 12px #000}
-    .tools{display:flex;gap:7px;align-items:center}
-    .tools button,.summary-link{height:38px;border:1px solid #dcc59d3d;background:#100e0bbd;color:#efe4cf;padding:0 12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
-    .tools button:hover,.summary-link:hover{background:#c9a66b2e}
-    #stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;background:#100e0b}
+    html,body{width:100%;height:100%;margin:0}
+    body{
+      overflow:hidden;
+      color:var(--ink);
+      background:var(--night);
+      font-family:Georgia,"Times New Roman",serif;
+    }
+    button,a{font:inherit}
+    button{color:inherit}
+    a{color:inherit}
+    :focus-visible{outline:2px solid var(--gold-soft);outline-offset:4px}
+
+    #app{
+      position:relative;
+      isolation:isolate;
+      width:100%;
+      height:100vh;
+      height:100dvh;
+      min-height:560px;
+      overflow:hidden;
+      background:
+        radial-gradient(ellipse at 74% 40%,rgba(52,67,65,.18),transparent 38%),
+        radial-gradient(ellipse at 12% 102%,rgba(119,76,38,.12),transparent 30%),
+        var(--night);
+    }
+    #app:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      opacity:.35;
+      background-image:
+        radial-gradient(rgba(255,255,255,.07) .55px,transparent .7px),
+        radial-gradient(rgba(0,0,0,.36) .65px,transparent .8px);
+      background-position:0 0,7px 9px;
+      background-size:13px 13px,17px 17px;
+      mix-blend-mode:soft-light;
+    }
+
+    .masthead{
+      position:absolute;
+      z-index:50;
+      top:20px;
+      left:clamp(18px,3.5vw,58px);
+      right:clamp(18px,3.5vw,58px);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+      pointer-events:none;
+    }
+    .brand,.edition{pointer-events:auto}
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      border:0;
+      padding:0;
+      background:none;
+      text-align:left;
+      cursor:pointer;
+    }
+    .brand-small,.edition-label,.rail-label,.map-caption span,.paper-head,.paper-status,.detail-meta{
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:10px;
+      line-height:1.2;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+    }
+    .brand-small,.edition-label{color:var(--gold)}
+    .brand-title{
+      font-size:clamp(20px,2.1vw,31px);
+      line-height:1;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--ink);
+      text-shadow:0 2px 12px rgba(0,0,0,.7);
+    }
+    .edition{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding-top:4px;
+    }
+    .edition-line{
+      width:clamp(42px,7vw,100px);
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold));
+      opacity:.75;
+    }
+    .edition-label{color:var(--ink);letter-spacing:.28em}
+
+    .atlas-layout{
+      position:absolute;
+      inset:78px clamp(18px,3.5vw,58px) 28px;
+      display:grid;
+      grid-template-columns:54px minmax(0,1fr);
+      gap:18px;
+      min-height:0;
+    }
+    .rail{
+      display:flex;
+      min-height:0;
+      flex-direction:column;
+      align-items:center;
+      gap:13px;
+      padding-top:22px;
+    }
+    .rail-ornament{
+      position:relative;
+      width:28px;
+      height:28px;
+      margin-bottom:8px;
+      transform:rotate(45deg);
+      border:1px solid rgba(200,162,99,.8);
+    }
+    .rail-ornament:before,.rail-ornament:after{
+      content:"";
+      position:absolute;
+      background:var(--gold);
+    }
+    .rail-ornament:before{top:50%;left:-7px;width:40px;height:1px}
+    .rail-ornament:after{left:50%;top:-7px;width:1px;height:40px}
+    .rail-button{
+      position:relative;
+      display:grid;
+      place-items:center;
+      width:50px;
+      height:58px;
+      border:1px solid transparent;
+      background:transparent;
+      color:var(--muted);
+      cursor:pointer;
+      transition:color .2s ease,background-color .2s ease,border-color .2s ease;
+    }
+    .rail-button:hover,.rail-button.is-active{
+      color:var(--gold-soft);
+      border-color:var(--line);
+      background:rgba(200,162,99,.08);
+    }
+    .rail-button.is-active:before{
+      content:"";
+      position:absolute;
+      left:-1px;
+      top:8px;
+      bottom:8px;
+      width:2px;
+      background:var(--gold);
+    }
+    .rail-icon{display:grid;place-items:center;width:27px;height:27px}
+    .rail-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.2}
+    .rail-label{font-size:8px;letter-spacing:.16em}
+    .rail-rule{width:22px;height:1px;background:var(--line);margin:2px 0}
+
+    .map-frame{
+      position:relative;
+      min-width:0;
+      min-height:0;
+      overflow:hidden;
+      border:1px solid rgba(224,201,151,.48);
+      background:#18130f;
+      box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 0 0 7px rgba(19,13,9,.55);
+    }
+    .map-frame:before{
+      content:"";
+      position:absolute;
+      z-index:5;
+      inset:10px;
+      pointer-events:none;
+      border:1px solid rgba(224,201,151,.31);
+      box-shadow:inset 0 0 0 1px rgba(30,20,12,.48);
+    }
+    .map-frame:after{
+      content:"";
+      position:absolute;
+      z-index:5;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(90deg,rgba(5,4,3,.25),transparent 13%,transparent 82%,rgba(5,4,3,.18)),
+        linear-gradient(0deg,rgba(5,4,3,.3),transparent 14%,transparent 83%,rgba(5,4,3,.2));
+      mix-blend-mode:multiply;
+    }
+    #stage{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      cursor:grab;
+      touch-action:none;
+      background:#18130f;
+    }
     #stage.drag{cursor:grabbing}
-    #stage:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 68%,#09080644 100%)}
-    #scene{position:absolute;left:50%;top:52%;width:min(94vw,117vh,1500px);aspect-ratio:1513/1040;transform-origin:center;user-select:none;will-change:transform}
-    #scene img{width:100%;height:100%;display:block;object-fit:contain;filter:saturate(.98) contrast(1.02) brightness(1.08);box-shadow:0 18px 70px #0008}
-    .m{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);z-index:8;display:flex;align-items:center;gap:8px;border:0;background:0;color:#201b14;padding:9px;cursor:pointer}
-    .m i{width:13px;height:13px;border-radius:50%;background:#754a28;border:2px solid #ead4a3;box-shadow:0 0 0 4px #301e1159,0 2px 10px #0008}
-    .m span{display:none;font-weight:700;white-space:nowrap;background:#eadbb8e8;border:1px solid #3e2b1966;padding:4px 8px;border-radius:3px;box-shadow:0 2px 8px #0003}.m:hover span,.m:focus-visible span{display:block}
-    .m.lock{opacity:.52}.m.lock i{background:#5c554b;border-style:dashed}.m.myst i{background:#475052;border-color:#cad1cc}.m:hover i{transform:scale(1.35)}
-    .hint{position:fixed;z-index:20;left:50%;bottom:20px;transform:translateX(-50%);font:11px Arial;background:#0d0c0aa8;border:1px solid #dcc59d24;padding:8px 12px;color:#efe4cfbd;backdrop-filter:blur(7px)}
-    aside{position:fixed;z-index:40;top:0;bottom:0;width:min(430px,92vw);background:#12100ced;border-left:1px solid #dcc59d3d;backdrop-filter:blur(14px);transition:transform .28s ease;overflow:auto}
-    #detail{right:0;transform:translateX(102%)}#detail.open{transform:none}
-    #index{left:0;transform:translateX(-102%);border-left:0;border-right:1px solid #dcc59d3d;padding:26px}#index.open{transform:none}
-    .close{position:absolute;top:15px;right:15px;width:38px;height:38px;border-radius:50%;border:1px solid #efe4cf40;background:#0a0907b0;color:#efe4cf;font-size:24px;cursor:pointer}
-    .art{height:160px;background:radial-gradient(circle at 30% 35%,#cfbe9e2e,transparent 32%),linear-gradient(145deg,#594f4252,#181612e0);border-bottom:1px solid #dcc59d3d}
-    .content{padding:26px 28px}.meta{font:10px Arial;letter-spacing:.2em;text-transform:uppercase;color:#c9a66b;margin-bottom:10px}h1,h2{font-weight:500}h1{font-size:42px;line-height:1;margin:0 0 12px}h2{font-size:34px;margin:4px 0 22px}.lead{font-size:18px;line-height:1.45;color:#eadfc9}.body{font-size:14px;line-height:1.65;color:#c9bdab}.status{margin-top:20px;padding-top:16px;border-top:1px solid #dcc59d3d;font:11px Arial;color:#ad9f8b}
-    .idx{display:grid;gap:8px}.idx button{width:100%;text-align:left;border:1px solid #dcc59d3d;background:#ffffff05;color:#efe4cf;padding:14px 15px;cursor:pointer}.idx button:hover{background:#c9a66b2e}.note{margin-top:20px;padding-top:16px;border-top:1px solid #dcc59d3d;font-size:12px;line-height:1.55;color:#aa9d8b}
-    @media(max-width:760px){header{padding:15px}.tools #idxBtn{display:none}.summary-link{font-size:12px;padding:0 9px}#scene{width:135vw}.m span{font-size:12px}.hint{width:calc(100% - 24px);text-align:center}}
+    #scene{
+      position:absolute;
+      z-index:2;
+      left:50%;
+      top:50%;
+      width:min(1400px,calc(100% - 26px),130vh);
+      aspect-ratio:1513/1040;
+      transform-origin:center;
+      user-select:none;
+      will-change:transform;
+    }
+    #scene img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      pointer-events:none;
+      filter:saturate(.9) contrast(1.03) brightness(1.06);
+      box-shadow:0 17px 36px rgba(0,0,0,.42);
+    }
+
+    .marker{
+      position:absolute;
+      left:var(--x);
+      top:var(--y);
+      z-index:8;
+      display:grid;
+      justify-items:center;
+      gap:7px;
+      min-width:58px;
+      padding:8px;
+      transform:translate(-50%,-50%);
+      border:0;
+      background:transparent;
+      color:var(--ink);
+      cursor:pointer;
+    }
+    .marker-icon{
+      position:relative;
+      display:grid;
+      place-items:center;
+      width:37px;
+      height:37px;
+      border:1px solid currentColor;
+      border-radius:50%;
+      background:rgba(20,15,11,.64);
+      box-shadow:0 2px 10px rgba(0,0,0,.5);
+      transition:transform .2s ease,background-color .2s ease;
+    }
+    .marker-icon:before,.marker-icon:after{content:"";position:absolute}
+    .marker-icon:before{
+      width:19px;
+      height:19px;
+      border:1px solid currentColor;
+      transform:rotate(45deg);
+    }
+    .marker-icon:after{width:25px;height:1px;background:currentColor}
+    .marker-label{
+      max-width:160px;
+      padding:4px 7px;
+      opacity:0;
+      transform:translateY(3px);
+      color:#23190f;
+      background:rgba(231,207,159,.94);
+      border:1px solid rgba(52,34,20,.55);
+      box-shadow:0 2px 6px rgba(0,0,0,.28);
+      font-size:12px;
+      line-height:1.1;
+      white-space:nowrap;
+      pointer-events:none;
+      transition:opacity .18s ease,transform .18s ease;
+    }
+    .marker:hover .marker-icon,.marker:focus-visible .marker-icon,.marker.is-selected .marker-icon{transform:scale(1.11)}
+    .marker:hover .marker-label,.marker:focus-visible .marker-label,.marker.is-selected .marker-label{opacity:1;transform:none}
+    .marker.city{color:#9c6f2f}
+    .marker.city .marker-icon{background:rgba(98,63,25,.82)}
+    .marker.city .marker-icon:before{
+      width:17px;
+      height:14px;
+      border-radius:2px 2px 0 0;
+      transform:none;
+      clip-path:polygon(0 100%,0 32%,24% 32%,24% 0,43% 0,43% 32%,62% 32%,62% 13%,80% 13%,80% 32%,100% 32%,100% 100%);
+    }
+    .marker.city .marker-icon:after{bottom:7px;width:21px}
+    .marker.place{color:#405b62}
+    .marker.place .marker-icon{background:rgba(42,60,64,.9)}
+    .marker.mystery{color:#d9d3c6}
+    .marker.mystery .marker-icon{background:rgba(51,57,57,.88)}
+    .marker.locked{color:#6f6a60;opacity:.88}
+    .marker.locked .marker-icon{border-style:dashed;background:rgba(45,41,35,.7)}
+    .marker.locked .marker-icon:before{border-style:dashed}
+    .marker.locked .marker-label{color:#d7cbb4;background:rgba(31,27,22,.9);border-color:rgba(224,201,151,.25)}
+
+    .map-caption{
+      position:absolute;
+      z-index:10;
+      left:26px;
+      bottom:20px;
+      display:flex;
+      align-items:baseline;
+      gap:11px;
+      color:rgba(242,230,207,.8);
+      text-shadow:0 1px 5px #000;
+      pointer-events:none;
+    }
+    .map-caption span{color:var(--gold);font-size:9px}
+    .map-caption strong{font-size:15px;font-weight:500;letter-spacing:.06em}
+    .map-caption em{font:11px Arial,Helvetica,sans-serif;color:rgba(242,230,207,.65);font-style:normal}
+    .map-controls{
+      position:absolute;
+      z-index:12;
+      right:22px;
+      bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+    .map-control{
+      display:grid;
+      place-items:center;
+      width:32px;
+      height:32px;
+      border:1px solid rgba(224,201,151,.35);
+      background:rgba(18,14,10,.72);
+      color:var(--ink);
+      cursor:pointer;
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:19px;
+      line-height:1;
+    }
+    .map-control:hover{border-color:var(--gold);color:var(--gold-soft)}
+    .map-control.reset{
+      width:auto;
+      padding:0 10px;
+      font-size:9px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+    }
+    .map-help{
+      position:absolute;
+      z-index:10;
+      left:50%;
+      top:18px;
+      transform:translateX(-50%);
+      padding:5px 8px;
+      color:rgba(242,230,207,.62);
+      font:10px Arial,Helvetica,sans-serif;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      pointer-events:none;
+      opacity:.8;
+    }
+
+    .scrim{
+      position:absolute;
+      z-index:25;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+    }
+    .scrim.is-visible{opacity:1;pointer-events:auto}
+
+    .dossier{
+      position:absolute;
+      z-index:40;
+      top:50%;
+      right:clamp(28px,3.5vw,58px);
+      width:min(365px,31vw);
+      max-height:calc(100% - 116px);
+      overflow:auto;
+      color:var(--paper-ink);
+      background:
+        radial-gradient(ellipse at 15% 5%,rgba(255,255,255,.32),transparent 28%),
+        radial-gradient(ellipse at 80% 75%,rgba(95,56,26,.12),transparent 36%),
+        var(--paper);
+      border:1px solid rgba(62,37,18,.72);
+      box-shadow:0 22px 45px rgba(0,0,0,.52),inset 0 0 0 5px rgba(92,55,23,.13);
+      transform:translate(114%,-50%);
+      transition:transform .32s cubic-bezier(.22,.75,.25,1);
+      scrollbar-width:thin;
+      scrollbar-color:rgba(74,44,20,.55) transparent;
+    }
+    .dossier.is-open{transform:translate(0,-50%)}
+    .dossier:before,.dossier:after{
+      content:"";
+      position:absolute;
+      z-index:1;
+      left:12px;
+      right:12px;
+      height:6px;
+      pointer-events:none;
+      opacity:.38;
+      background:repeating-linear-gradient(90deg,transparent 0 8px,rgba(67,38,15,.45) 9px 11px,transparent 12px 21px);
+    }
+    .dossier:before{top:9px}
+    .dossier:after{bottom:9px}
+    .paper-inner{position:relative;padding:21px 22px 24px}
+    .paper-close{
+      position:absolute;
+      z-index:4;
+      top:14px;
+      right:14px;
+      display:grid;
+      place-items:center;
+      width:29px;
+      height:29px;
+      border:1px solid rgba(62,37,18,.48);
+      border-radius:50%;
+      background:rgba(244,224,181,.5);
+      color:var(--paper-ink);
+      cursor:pointer;
+      font:21px/1 Arial,sans-serif;
+    }
+    .paper-close:hover{background:rgba(62,37,18,.12)}
+    .paper-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:0 34px 14px 1px;
+      color:rgba(57,35,17,.72);
+      font-size:8px;
+      letter-spacing:.18em;
+      border-bottom:1px solid rgba(62,37,18,.28);
+    }
+    .folio-art{
+      position:relative;
+      height:180px;
+      margin:18px 0 21px;
+      overflow:hidden;
+      border:1px solid rgba(62,37,18,.52);
+      background-color:#a98c5d;
+      background-image:url("/world-map-textless.jpg");
+      background-repeat:no-repeat;
+      background-size:310% auto;
+      background-position:40% 61%;
+      filter:sepia(.1) saturate(.82);
+    }
+    .folio-art:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:linear-gradient(90deg,rgba(23,14,7,.28),transparent 36%,rgba(242,220,174,.16)),linear-gradient(0deg,rgba(23,14,7,.24),transparent 38%,rgba(242,220,174,.17));
+      mix-blend-mode:multiply;
+    }
+    .folio-art-label{
+      position:absolute;
+      z-index:2;
+      left:11px;
+      bottom:9px;
+      padding:4px 6px;
+      color:#f2dfb3;
+      background:rgba(42,26,13,.75);
+      font:9px Arial,Helvetica,sans-serif;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .folio-seal{
+      position:absolute;
+      z-index:3;
+      top:50%;
+      left:50%;
+      display:grid;
+      place-items:center;
+      width:44px;
+      height:44px;
+      border:1px solid var(--gold-soft);
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      color:var(--gold-soft);
+      background:rgba(52,32,15,.72);
+      box-shadow:0 2px 8px rgba(0,0,0,.42);
+    }
+    .folio-seal:before{content:"";width:22px;height:22px;border:1px solid currentColor;transform:rotate(45deg)}
+    .folio-seal:after{content:"";position:absolute;width:29px;height:1px;background:currentColor}
+    .folio-kicker,.detail-meta{color:#825c2b;font-size:9px;letter-spacing:.16em}
+    .detail-title{
+      margin:8px 0 11px;
+      font-size:clamp(34px,3.4vw,48px);
+      line-height:.96;
+      font-weight:500;
+      letter-spacing:.02em;
+    }
+    .detail-lead{
+      margin:0;
+      color:#49321d;
+      font-size:17px;
+      line-height:1.38;
+    }
+    .detail-body{
+      margin-top:17px;
+      padding-top:15px;
+      border-top:1px solid rgba(62,37,18,.28);
+      color:#5a4128;
+      font-size:13px;
+      line-height:1.58;
+    }
+    .detail-body p{margin:0}
+    .paper-footer{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:20px;
+      padding-top:13px;
+      border-top:1px solid rgba(62,37,18,.28);
+    }
+    .paper-status{color:#825c2b;font-size:8px;letter-spacing:.14em}
+    .paper-status strong{display:block;margin-top:5px;color:#342213;font-size:11px;letter-spacing:.08em}
+    .paper-index{font:italic 12px Georgia,serif;color:rgba(62,37,18,.65)}
+
+    .drawer{
+      position:absolute;
+      z-index:45;
+      top:78px;
+      bottom:28px;
+      left:clamp(18px,3.5vw,58px);
+      width:min(360px,calc(100vw - 38px));
+      overflow:auto;
+      padding:28px 26px;
+      color:var(--ink);
+      background:rgba(18,15,12,.97);
+      border:1px solid var(--line);
+      box-shadow:0 20px 44px rgba(0,0,0,.5);
+      transform:translateX(-112%);
+      transition:transform .28s cubic-bezier(.22,.75,.25,1);
+    }
+    .drawer.is-open{transform:none}
+    .drawer-close{
+      position:absolute;
+      top:16px;
+      right:16px;
+      display:grid;
+      place-items:center;
+      width:32px;
+      height:32px;
+      border:1px solid var(--line);
+      border-radius:50%;
+      background:transparent;
+      color:var(--ink);
+      cursor:pointer;
+      font:22px/1 Arial,sans-serif;
+    }
+    .drawer-kicker{color:var(--gold);font:10px Arial,Helvetica,sans-serif;letter-spacing:.22em;text-transform:uppercase}
+    .drawer h2{margin:13px 0 24px;font-size:33px;font-weight:500;line-height:1}
+    .index-list{display:grid;gap:7px}
+    .index-item{
+      display:grid;
+      grid-template-columns:31px 1fr;
+      align-items:center;
+      gap:9px;
+      width:100%;
+      min-height:50px;
+      padding:8px 10px;
+      border:1px solid rgba(224,201,151,.18);
+      background:rgba(255,255,255,.025);
+      color:var(--ink);
+      text-align:left;
+      cursor:pointer;
+    }
+    .index-item:hover{border-color:rgba(224,201,151,.55);background:rgba(200,162,99,.08)}
+    .index-symbol{
+      display:grid;
+      place-items:center;
+      width:25px;
+      height:25px;
+      border:1px solid currentColor;
+      border-radius:50%;
+      font:11px Arial,sans-serif;
+    }
+    .index-copy{display:flex;flex-direction:column;gap:3px}
+    .index-name{font-size:15px}
+    .index-state{color:var(--muted);font:9px Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .drawer-note{
+      margin:22px 0 0;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    @media (max-width:980px){
+      .dossier{width:min(365px,38vw)}
+      .map-help{display:none}
+    }
+    @media (max-width:760px){
+      #app{min-height:520px}
+      .masthead{top:15px;left:15px;right:15px}
+      .brand-title{font-size:18px;letter-spacing:.11em}
+      .brand-small{font-size:8px;letter-spacing:.16em}
+      .edition{padding-top:2px}
+      .edition-line{display:none}
+      .edition-label{font-size:8px;letter-spacing:.18em}
+      .atlas-layout{
+        inset:64px 12px 12px;
+        grid-template-columns:43px minmax(0,1fr);
+        gap:9px;
+      }
+      .rail{padding-top:12px;gap:8px}
+      .rail-ornament{width:22px;height:22px;margin-bottom:4px}
+      .rail-ornament:before{width:32px;left:-5px}
+      .rail-ornament:after{height:32px;top:-5px}
+      .rail-button{width:41px;height:51px}
+      .rail-label{font-size:7px}
+      .rail-icon{width:23px;height:23px}
+      #scene{width:145vw}
+      .map-frame{box-shadow:0 12px 30px rgba(0,0,0,.48),inset 0 0 0 4px rgba(19,13,9,.55)}
+      .map-frame:before{inset:7px}
+      .map-caption{left:16px;bottom:13px;gap:7px}
+      .map-caption strong{font-size:12px}
+      .map-caption em{display:none}
+      .map-controls{right:13px;bottom:10px}
+      .map-control{width:29px;height:29px}
+      .map-control.reset{padding:0 7px;font-size:8px}
+      .dossier{
+        top:auto;
+        right:12px;
+        bottom:12px;
+        width:calc(100% - 24px);
+        max-height:75vh;
+        transform:translateY(112%);
+      }
+      .dossier.is-open{transform:none}
+      .paper-inner{padding:18px 18px 20px}
+      .folio-art{height:135px;margin:14px 0 16px}
+      .detail-title{font-size:36px}
+      .detail-lead{font-size:16px}
+      .drawer{top:64px;bottom:12px;left:12px;width:calc(100% - 24px);padding:24px 20px}
+      .drawer h2{font-size:29px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+    }
   </style>
 </head>
 <body>
   <main id="app">
-    <header>
-      <button class="brand" id="brand"><span class="k">CODEX 0.1</span><span class="title">La Couronne des Brumes</span></button>
-      <div class="tools">
-        <a class="summary-link" href="/resume.html">Résumé</a>
-        <button id="idxBtn">Index</button>
-        <button id="minus">−</button>
-        <button id="plus">+</button>
-        <button id="reset">Vue monde</button>
+    <header class="masthead">
+      <button class="brand" id="brand" aria-label="Réinitialiser la vue de l'atlas">
+        <span class="brand-small">Codex cartographique</span>
+        <span class="brand-title">La Couronne des Brumes</span>
+      </button>
+      <div class="edition" aria-label="Section actuelle">
+        <span class="edition-line"></span>
+        <span class="edition-label">Atlas</span>
       </div>
     </header>
-    <section id="stage">
-      <div id="scene">
-        <img alt="Carte du monde connu — illustration sans texte" src="/world-map-textless.jpg">
-        <button class="m" style="--x:40%;--y:61%" data-p="veyren"><i></i><span>Veyren</span></button>
-        <button class="m" style="--x:32%;--y:74%" data-p="veyre"><i></i><span>Veyre</span></button>
-        <button class="m" style="--x:20%;--y:38%" data-p="marches"><i></i><span>Les Marches</span></button>
-        <button class="m myst" style="--x:12%;--y:62%" data-p="couronne"><i></i><span>La Couronne</span></button>
-        <button class="m myst" style="--x:24%;--y:80%" data-p="ile"><i></i><span>Île apparue</span></button>
-        <button class="m lock" style="--x:54.5%;--y:21%" data-p="nord"><i></i><span>Nord industriel</span></button>
-        <button class="m lock" style="--x:75%;--y:43%" data-p="republique"><i></i><span>République de l’Est</span></button>
-        <button class="m lock" style="--x:95%;--y:30%" data-p="odren"><i></i><span>Odren</span></button>
+
+    <div class="atlas-layout">
+      <nav class="rail" aria-label="Navigation du Codex">
+        <span class="rail-ornament" aria-hidden="true"></span>
+        <button class="rail-button is-active" id="atlas-nav" type="button" aria-label="Atlas" aria-current="page">
+          <span class="rail-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11"/><path d="M5 16h22M16 5c3 3 4.5 7 4.5 11S19 24 16 27M16 5c-3 3-4.5 7-4.5 11S13 24 16 27"/></svg>
+          </span>
+          <span class="rail-label">Atlas</span>
+        </button>
+        <a class="rail-button" href="/resume.html" aria-label="Résumé de l'univers">
+          <span class="rail-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M5 7.5c4-1.2 7.7-.6 11 1.9v17c-3.3-2.5-7-3.1-11-1.9zM27 7.5c-4-1.2-7.7-.6-11 1.9v17c3.3-2.5 7-3.1 11-1.9zM16 9.5v16.9"/></svg>
+          </span>
+          <span class="rail-label">Résumé</span>
+        </a>
+        <span class="rail-rule" aria-hidden="true"></span>
+        <button class="rail-button" id="index-nav" type="button" aria-label="Ouvrir l'index des lieux">
+          <span class="rail-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="m16 4 10 6v12l-10 6-10-6V10z"/><path d="m16 10 4 3v6l-4 3-4-3v-6z"/></svg>
+          </span>
+          <span class="rail-label">Index</span>
+        </button>
+      </nav>
+
+      <section class="map-frame" aria-label="Carte interactive du monde connu">
+        <div id="stage">
+          <div id="scene">
+            <img src="/world-map-textless.jpg" alt="Carte illustrée sans texte du monde connu de La Couronne des Brumes">
+
+            <button class="marker city" style="--x:40%;--y:61%" data-point="veyren" type="button" aria-label="Ouvrir la fiche de Veyren" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Veyren</span>
+            </button>
+            <button class="marker city" style="--x:32%;--y:74%" data-point="veyre" type="button" aria-label="Ouvrir la fiche de Veyre" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Veyre</span>
+            </button>
+            <button class="marker place" style="--x:20%;--y:38%" data-point="marches" type="button" aria-label="Ouvrir la fiche des Marches" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Les Marches</span>
+            </button>
+            <button class="marker mystery" style="--x:12%;--y:62%" data-point="couronne" type="button" aria-label="Ouvrir la fiche de la Couronne" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">La Couronne</span>
+            </button>
+            <button class="marker mystery" style="--x:24%;--y:80%" data-point="ile" type="button" aria-label="Ouvrir la fiche de l'île apparue" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Île apparue</span>
+            </button>
+            <button class="marker locked" style="--x:54.5%;--y:21%" data-point="nord" type="button" aria-label="Nord industriel, fiche non publiée" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Nord industriel</span>
+            </button>
+            <button class="marker locked" style="--x:75%;--y:43%" data-point="republique" type="button" aria-label="République marchande, fiche non publiée" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">République marchande</span>
+            </button>
+            <button class="marker locked" style="--x:95%;--y:30%" data-point="odren" type="button" aria-label="Odren, fiche non publiée" aria-pressed="false">
+              <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Odren</span>
+            </button>
+          </div>
+        </div>
+        <div class="map-help">Sélectionner un repère</div>
+        <div class="map-caption"><span>Planche 01</span><strong>Monde connu</strong><em>édition de travail</em></div>
+        <div class="map-controls" aria-label="Contrôles de la carte">
+          <button class="map-control" id="zoom-out" type="button" aria-label="Dézoomer">−</button>
+          <button class="map-control" id="zoom-in" type="button" aria-label="Zoomer">+</button>
+          <button class="map-control reset" id="reset" type="button">Vue monde</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+    <aside class="dossier" id="dossier" aria-labelledby="detail-title" aria-hidden="true">
+      <div class="paper-inner">
+        <button class="paper-close" id="dossier-close" type="button" aria-label="Fermer la fiche">×</button>
+        <div class="paper-head"><span>Notice cartographique</span><span id="detail-number">01</span></div>
+        <div class="folio-art" id="folio-art">
+          <span class="folio-art-label" id="folio-art-label">Repère sélectionné</span>
+          <span class="folio-seal" aria-hidden="true"></span>
+        </div>
+        <div class="detail-meta" id="detail-meta"></div>
+        <h1 class="detail-title" id="detail-title"></h1>
+        <p class="detail-lead" id="detail-lead"></p>
+        <div class="detail-body" id="detail-body"></div>
+        <div class="paper-footer">
+          <div class="paper-status" id="detail-status"></div>
+          <span class="paper-index" id="detail-index">A—01</span>
+        </div>
       </div>
-      <div class="hint">Glisser pour déplacer · molette ou boutons pour zoomer · cliquer pour explorer</div>
-    </section>
-    <aside id="detail">
-      <button class="close" id="close">×</button><div class="art"></div>
-      <div class="content"><div class="meta" id="meta"></div><h1 id="pt"></h1><p class="lead" id="lead"></p><div class="body" id="body"></div><div class="status" id="status"></div></div>
     </aside>
-    <aside id="index">
-      <button class="close" id="iclose">×</button><span class="k">INDEX DU CODEX</span><h2>Monde publié</h2><nav class="idx" id="ilist"></nav><p class="note">Le Codex ne publie que les éléments suffisamment stabilisés. Les zones en pointillés existent sur la carte, mais leur fiche reste volontairement fermée.</p>
+
+    <aside class="drawer" id="index-drawer" aria-labelledby="index-title" aria-hidden="true">
+      <button class="drawer-close" id="index-close" type="button" aria-label="Fermer l'index">×</button>
+      <div class="drawer-kicker">Codex · index des repères</div>
+      <h2 id="index-title">Monde publié</h2>
+      <div class="index-list" id="index-list"></div>
+      <p class="drawer-note">Les zones grisées existent sur la carte validée, mais leur fiche reste fermée tant que leur canon n'est pas suffisamment stabilisé.</p>
     </aside>
   </main>
+
   <script>
-    (()=>{
-      const P={
-        veyren:['Veyren','Lieu canon · Capitale maritime','Une capitale plus vieille que les dynasties qui la gouvernent, accumulée en couches autour d’une immense baie.','Dense, populaire, bruyante et profondément tournée vers la mer, Veyren est le cœur de la vieille puissance maritime. Son véritable symbole de puissance n’est pas le palais mais l’Arsenal. Le Courant y fait partie de la vie quotidienne.',1],
-        veyre:['Veyre','Lieu canon · Frontière de la Couronne','Une cité maritime ancienne bâtie au contact des falaises, des marées, des vents violents et de la Couronne.','Veyre vit avec la Couronne depuis assez longtemps pour avoir transformé le danger en habitudes. Au début du récit, son phare s’éteint. Le gardien disparaît. Le mécanisme continue pourtant de fonctionner sous la falaise.',1],
-        marches:['Les Marches','Lieu canon · Archipels occidentaux','Là où l’autorité des grands États devient intermittente et où la civilisation peut s’arrêter quelques rues après le port.','Ports improvisés, petites colonies, compagnies privées, contrebandiers, mercenaires et communautés isolées composent une frontière maritime fragmentée.',1],
-        couronne:['La Couronne','Mystère canon · Limite du monde navigable','Une ceinture de brumes et de tempêtes marque la limite supposée du monde navigable.','Sa nature exacte reste inconnue. Le Codex s’arrête volontairement ici : ce qui existe au-delà n’est pas publié.',1],
-        ile:['L’île apparue','Événement canon · Déclencheur','Au matin suivant l’extinction du phare de Veyre, une île inconnue apparaît à l’horizon.','Elle n’existait sur aucune carte connue. Son apparition transforme une panne locale en question beaucoup plus large.',1],
-        nord:['Puissance industrielle du Nord','Présence cartographique · Fiche non publiée','Cette puissance existe sur la carte validée, mais son identité détaillée n’est pas encore publiée dans le Codex.','Les éléments en développement restent volontairement hors de cette édition.',0],
-        republique:['République marchande de l’Est','Présence cartographique · Fiche non publiée','Cette puissance existe sur la carte validée, mais sa fiche reste fermée tant que son canon n’est pas suffisamment stabilisé.','Le Codex n’expose pas les variantes de travail.',0],
-        odren:['Odren','Présence cartographique · Fiche non publiée','Odren appartient à une aire maritime plus lointaine. Sa présence sur la carte est validée ; sa fiche complète n’est pas encore publiée.','Les détails d’auteur restent dans l’atelier tant qu’une publication explicite du Canon n’a pas été faite.',0]
+    (function(){
+      var points = {
+        veyren: {
+          name:"Veyren",
+          meta:"Lieu canon · Capitale maritime",
+          label:"Capitale maritime",
+          lead:"Une capitale plus vieille que les dynasties qui la gouvernent, accumulée en couches autour d’une immense baie.",
+          body:"Dense, populaire, bruyante et profondément tournée vers la mer, Veyren est le cœur de la vieille puissance maritime. Son véritable symbole de puissance n’est pas le palais mais l’Arsenal. Le Courant y fait partie de la vie quotidienne.",
+          x:40,y:61,kind:"city",published:true,number:"01",index:"A—01"
+        },
+        veyre: {
+          name:"Veyre",
+          meta:"Lieu canon · Frontière de la Couronne",
+          label:"Frontière maritime",
+          lead:"Une cité maritime ancienne bâtie au contact des falaises, des marées, des vents violents et de la Couronne.",
+          body:"Veyre vit avec la Couronne depuis assez longtemps pour avoir transformé le danger en habitudes. Au début du récit, son phare s’éteint. Le gardien disparaît. Le mécanisme continue pourtant de fonctionner sous la falaise.",
+          x:32,y:74,kind:"city",published:true,number:"02",index:"A—02"
+        },
+        marches: {
+          name:"Les Marches",
+          meta:"Lieu canon · Archipels occidentaux",
+          label:"Archipels occidentaux",
+          lead:"Là où l’autorité des grands États devient intermittente et où la civilisation peut s’arrêter quelques rues après le port.",
+          body:"Ports improvisés, petites colonies, compagnies privées, contrebandiers, mercenaires et communautés isolées composent une frontière maritime fragmentée.",
+          x:20,y:38,kind:"place",published:true,number:"03",index:"A—03"
+        },
+        couronne: {
+          name:"La Couronne",
+          meta:"Mystère canon · Limite du monde navigable",
+          label:"Limite du monde connu",
+          lead:"Une ceinture de brumes et de tempêtes marque la limite supposée du monde navigable.",
+          body:"Sa nature exacte reste inconnue. Le Codex s’arrête volontairement ici : ce qui existe au-delà n’est pas publié.",
+          x:12,y:62,kind:"mystery",published:true,number:"04",index:"A—04"
+        },
+        ile: {
+          name:"L’île apparue",
+          meta:"Événement canon · Déclencheur",
+          label:"Événement déclencheur",
+          lead:"Au matin suivant l’extinction du phare de Veyre, une île inconnue apparaît à l’horizon.",
+          body:"Elle n’existait sur aucune carte connue. Son apparition transforme une panne locale en question beaucoup plus large.",
+          x:24,y:80,kind:"mystery",published:true,number:"05",index:"A—05"
+        },
+        nord: {
+          name:"Puissance industrielle du Nord",
+          meta:"Présence cartographique · Fiche non publiée",
+          label:"Fiche en développement",
+          lead:"Cette puissance existe sur la carte validée, mais son identité détaillée n’est pas encore publiée dans le Codex.",
+          body:"Les éléments en développement restent volontairement hors de cette édition.",
+          x:54.5,y:21,kind:"locked",published:false,number:"06",index:"A—06"
+        },
+        republique: {
+          name:"République marchande de l’Est",
+          meta:"Présence cartographique · Fiche non publiée",
+          label:"Fiche en développement",
+          lead:"Cette puissance existe sur la carte validée, mais sa fiche reste fermée tant que son canon n’est pas suffisamment stabilisé.",
+          body:"Le Codex n’expose pas les variantes de travail.",
+          x:75,y:43,kind:"locked",published:false,number:"07",index:"A—07"
+        },
+        odren: {
+          name:"Odren",
+          meta:"Présence cartographique · Fiche non publiée",
+          label:"Horizon lointain",
+          lead:"Odren appartient à une aire maritime plus lointaine. Sa présence sur la carte est validée ; sa fiche complète n’est pas encore publiée.",
+          body:"Les détails d’auteur restent dans l’atelier tant qu’une publication explicite du Canon n’a pas été faite.",
+          x:95,y:30,kind:"locked",published:false,number:"08",index:"A—08"
+        }
       };
-      const st=document.querySelector('#stage'),sc=document.querySelector('#scene'),d=document.querySelector('#detail'),ix=document.querySelector('#index');
-      const meta=document.querySelector('#meta'),pt=document.querySelector('#pt'),lead=document.querySelector('#lead'),body=document.querySelector('#body'),status=document.querySelector('#status');
-      let z=1,x=0,y=0,drag=0,pid,sx,sy,bx,by;
-      const tr=()=>{let mx=Math.max(0,(sc.offsetWidth*z-st.clientWidth)*.45+150),my=Math.max(0,(sc.offsetHeight*z-st.clientHeight)*.45+110);x=Math.min(mx,Math.max(-mx,x));y=Math.min(my,Math.max(-my,y));sc.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + ${y}px)) scale(${z})`};
-      const zoom=a=>{z=Math.min(2.65,Math.max(.86,z+a));tr()};
-      const reset=()=>{z=1;x=y=0;tr()};
-      st.onwheel=e=>{e.preventDefault();zoom(e.deltaY<0?.12:-.12)};
-      st.onpointerdown=e=>{if(e.target.closest('button,aside'))return;drag=1;pid=e.pointerId;sx=e.clientX;sy=e.clientY;bx=x;by=y;st.setPointerCapture(pid);st.classList.add('drag')};
-      st.onpointermove=e=>{if(!drag||e.pointerId!==pid)return;x=bx+e.clientX-sx;y=by+e.clientY-sy;tr()};
-      st.onpointerup=st.onpointercancel=e=>{if(!drag||e.pointerId!==pid)return;drag=0;st.classList.remove('drag')};
-      const open=k=>{let p=P[k];meta.textContent=p[1];pt.textContent=p[0];lead.textContent=p[2];body.innerHTML='<p>'+p[3]+'</p>';status.innerHTML='<strong>'+(p[4]?'Publié':'Fermé')+'</strong><br>'+(p[4]?'Canon publié · fiche V1':'Non publié · développement en cours');d.classList.add('open');ix.classList.remove('open')};
-      document.querySelectorAll('.m').forEach(b=>b.onclick=e=>{e.stopPropagation();open(b.dataset.p)});
-      document.querySelector('#close').onclick=()=>d.classList.remove('open');
-      document.querySelector('#plus').onclick=()=>zoom(.2);document.querySelector('#minus').onclick=()=>zoom(-.2);document.querySelector('#reset').onclick=document.querySelector('#brand').onclick=reset;
-      document.querySelector('#idxBtn').onclick=()=>{ix.classList.add('open');d.classList.remove('open')};
-      document.querySelector('#iclose').onclick=()=>ix.classList.remove('open');
-      const ilist=document.querySelector('#ilist');ilist.innerHTML=Object.keys(P).filter(k=>P[k][4]).map(k=>`<button data-k="${k}">${P[k][0]}</button>`).join('');ilist.querySelectorAll('button').forEach(b=>b.onclick=()=>open(b.dataset.k));
-      window.onresize=tr;tr();
+
+      var stage = document.getElementById("stage");
+      var scene = document.getElementById("scene");
+      var dossier = document.getElementById("dossier");
+      var drawer = document.getElementById("index-drawer");
+      var scrim = document.getElementById("scrim");
+      var folioArt = document.getElementById("folio-art");
+      var detailMeta = document.getElementById("detail-meta");
+      var detailTitle = document.getElementById("detail-title");
+      var detailLead = document.getElementById("detail-lead");
+      var detailBody = document.getElementById("detail-body");
+      var detailStatus = document.getElementById("detail-status");
+      var detailNumber = document.getElementById("detail-number");
+      var detailIndex = document.getElementById("detail-index");
+      var folioLabel = document.getElementById("folio-art-label");
+      var markers = Array.prototype.slice.call(document.querySelectorAll(".marker"));
+      var zoom = 1;
+      var panX = 0;
+      var panY = 0;
+      var dragging = false;
+      var pointerId = null;
+      var startX = 0;
+      var startY = 0;
+      var originX = 0;
+      var originY = 0;
+      var activePoint = null;
+
+      function clampPan(){
+        var maxX = Math.max(0,(scene.offsetWidth * zoom - stage.clientWidth) / 2 + 30);
+        var maxY = Math.max(0,(scene.offsetHeight * zoom - stage.clientHeight) / 2 + 30);
+        panX = Math.max(-maxX,Math.min(maxX,panX));
+        panY = Math.max(-maxY,Math.min(maxY,panY));
+      }
+      function renderTransform(){
+        clampPan();
+        scene.style.transform = "translate3d(calc(-50% + " + panX + "px),calc(-50% + " + panY + "px),0) scale(" + zoom + ")";
+      }
+      function setZoom(next){
+        zoom = Math.max(.88,Math.min(2.65,next));
+        renderTransform();
+      }
+      function resetView(){
+        zoom = 1;
+        panX = 0;
+        panY = 0;
+        renderTransform();
+      }
+      function updateMarkerState(){
+        markers.forEach(function(marker){
+          var selected = marker.getAttribute("data-point") === activePoint;
+          marker.classList.toggle("is-selected",selected);
+          marker.setAttribute("aria-pressed",selected ? "true" : "false");
+        });
+      }
+      function openPoint(key, focusClose){
+        var point = points[key];
+        if(!point){return}
+        activePoint = key;
+        detailMeta.textContent = point.meta;
+        detailTitle.textContent = point.name;
+        detailLead.textContent = point.lead;
+        detailBody.innerHTML = "<p>" + point.body + "</p>";
+        detailNumber.textContent = point.number;
+        detailIndex.textContent = point.index;
+        folioLabel.textContent = point.label;
+        folioArt.style.backgroundPosition = point.x + "% " + point.y + "%";
+        detailStatus.innerHTML = point.published ? "<span>Statut</span><strong>Canon publié</strong>" : "<span>Statut</span><strong>Fiche fermée</strong>";
+        dossier.classList.add("is-open");
+        dossier.setAttribute("aria-hidden","false");
+        drawer.classList.remove("is-open");
+        drawer.setAttribute("aria-hidden","true");
+        scrim.classList.toggle("is-visible",window.innerWidth <= 760);
+        updateMarkerState();
+        if(focusClose){document.getElementById("dossier-close").focus()}
+      }
+      function closeDossier(){
+        dossier.classList.remove("is-open");
+        dossier.setAttribute("aria-hidden","true");
+        scrim.classList.remove("is-visible");
+        updateMarkerState();
+      }
+      function openIndex(){
+        closeDossier();
+        drawer.classList.add("is-open");
+        drawer.setAttribute("aria-hidden","false");
+        scrim.classList.add("is-visible");
+        document.getElementById("index-close").focus();
+      }
+      function closeIndex(){
+        drawer.classList.remove("is-open");
+        drawer.setAttribute("aria-hidden","true");
+        scrim.classList.remove("is-visible");
+      }
+
+      stage.addEventListener("wheel",function(event){
+        event.preventDefault();
+        setZoom(zoom + (event.deltaY < 0 ? .12 : -.12));
+      },{passive:false});
+      stage.addEventListener("pointerdown",function(event){
+        if(event.target.closest(".marker")){return}
+        dragging = true;
+        pointerId = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+        originX = panX;
+        originY = panY;
+        stage.setPointerCapture(pointerId);
+        stage.classList.add("drag");
+      });
+      stage.addEventListener("pointermove",function(event){
+        if(!dragging || event.pointerId !== pointerId){return}
+        panX = originX + event.clientX - startX;
+        panY = originY + event.clientY - startY;
+        renderTransform();
+      });
+      function stopDragging(event){
+        if(!dragging || event.pointerId !== pointerId){return}
+        dragging = false;
+        stage.classList.remove("drag");
+      }
+      stage.addEventListener("pointerup",stopDragging);
+      stage.addEventListener("pointercancel",stopDragging);
+
+      markers.forEach(function(marker){
+        marker.addEventListener("click",function(event){
+          event.stopPropagation();
+          openPoint(marker.getAttribute("data-point"),true);
+        });
+      });
+      document.getElementById("zoom-in").addEventListener("click",function(){setZoom(zoom + .2)});
+      document.getElementById("zoom-out").addEventListener("click",function(){setZoom(zoom - .2)});
+      document.getElementById("reset").addEventListener("click",resetView);
+      document.getElementById("brand").addEventListener("click",resetView);
+      document.getElementById("atlas-nav").addEventListener("click",function(){closeIndex();closeDossier();resetView()});
+      document.getElementById("index-nav").addEventListener("click",openIndex);
+      document.getElementById("dossier-close").addEventListener("click",closeDossier);
+      document.getElementById("index-close").addEventListener("click",closeIndex);
+      scrim.addEventListener("click",function(){closeDossier();closeIndex()});
+      document.addEventListener("keydown",function(event){
+        if(event.key === "Escape"){closeDossier();closeIndex()}
+      });
+      window.addEventListener("resize",function(){
+        renderTransform();
+        if(window.innerWidth > 760){scrim.classList.remove("is-visible")}
+      });
+
+      var indexList = document.getElementById("index-list");
+      Object.keys(points).forEach(function(key){
+        var point = points[key];
+        var item = document.createElement("button");
+        item.type = "button";
+        item.className = "index-item";
+        item.innerHTML = '<span class="index-symbol" aria-hidden="true">' + point.number + '</span><span class="index-copy"><span class="index-name">' + point.name + '</span><span class="index-state">' + (point.published ? "Fiche publiée" : "Fiche non publiée") + "</span></span>";
+        item.addEventListener("click",function(){openPoint(key,true)});
+        indexList.appendChild(item);
+      });
+
+      renderTransform();
+      if(window.innerWidth > 900){openPoint("veyren",false)}
     })();
   </script>
 </body>

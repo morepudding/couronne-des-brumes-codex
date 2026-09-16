@@ -22,7 +22,7 @@
     #stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;background:#100e0b}
     #stage.drag{cursor:grabbing}
     #stage:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 68%,#09080644 100%)}
-    #scene{position:absolute;left:50%;top:52%;width:min(94vw,117vh,1500px);aspect-ratio:1447/1087;transform-origin:center;user-select:none;will-change:transform}
+    #scene{position:absolute;left:50%;top:52%;width:min(94vw,117vh,1500px);aspect-ratio:1513/1040;transform-origin:center;user-select:none;will-change:transform}
     #scene img{width:100%;height:100%;display:block;object-fit:contain;filter:saturate(.98) contrast(1.02) brightness(1.08);box-shadow:0 18px 70px #0008}
     .m{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);z-index:8;display:flex;align-items:center;gap:8px;border:0;background:0;color:#201b14;padding:9px;cursor:pointer}
     .m i{width:13px;height:13px;border-radius:50%;background:#754a28;border:2px solid #ead4a3;box-shadow:0 0 0 4px #301e1159,0 2px 10px #0008}
@@ -53,15 +53,15 @@
     </header>
     <section id="stage">
       <div id="scene">
-        <img alt="Carte du monde connu" src="/world-map.jpg">
-        <button class="m" style="--x:43.4%;--y:57%" data-p="veyren"><i></i><span>Veyren</span></button>
-        <button class="m" style="--x:33.5%;--y:75%" data-p="veyre"><i></i><span>Veyre</span></button>
-        <button class="m" style="--x:20.3%;--y:40.5%" data-p="marches"><i></i><span>Les Marches</span></button>
-        <button class="m myst" style="--x:10.7%;--y:65%" data-p="couronne"><i></i><span>La Couronne</span></button>
-        <button class="m myst" style="--x:22.8%;--y:80.6%" data-p="ile"><i></i><span>Île apparue</span></button>
-        <button class="m lock" style="--x:55.5%;--y:23.7%" data-p="nord"><i></i><span>Nord industriel</span></button>
-        <button class="m lock" style="--x:73.1%;--y:37.6%" data-p="republique"><i></i><span>République de l’Est</span></button>
-        <button class="m lock" style="--x:91.8%;--y:22%" data-p="odren"><i></i><span>Odren</span></button>
+        <img alt="Carte du monde connu — illustration sans texte" src="/world-map-textless.jpg">
+        <button class="m" style="--x:40%;--y:61%" data-p="veyren"><i></i><span>Veyren</span></button>
+        <button class="m" style="--x:32%;--y:74%" data-p="veyre"><i></i><span>Veyre</span></button>
+        <button class="m" style="--x:20%;--y:38%" data-p="marches"><i></i><span>Les Marches</span></button>
+        <button class="m myst" style="--x:12%;--y:62%" data-p="couronne"><i></i><span>La Couronne</span></button>
+        <button class="m myst" style="--x:24%;--y:80%" data-p="ile"><i></i><span>Île apparue</span></button>
+        <button class="m lock" style="--x:54.5%;--y:21%" data-p="nord"><i></i><span>Nord industriel</span></button>
+        <button class="m lock" style="--x:75%;--y:43%" data-p="republique"><i></i><span>République de l’Est</span></button>
+        <button class="m lock" style="--x:95%;--y:30%" data-p="odren"><i></i><span>Odren</span></button>
       </div>
       <div class="hint">Glisser pour déplacer · molette ou boutons pour zoomer · cliquer pour explorer</div>
     </section>

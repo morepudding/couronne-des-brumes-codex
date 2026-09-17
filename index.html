@@ -219,7 +219,7 @@
       left:50%;
       top:50%;
       width:min(1400px,calc(100% - 26px),130vh);
-      aspect-ratio:3/2;
+      aspect-ratio:16/9;
       transform-origin:center;
       user-select:none;
       will-change:transform;
@@ -693,25 +693,25 @@
           <div id="scene">
             <img src="/world-map-atlas.webp" alt="Carte illustrée sans texte du monde connu de La Couronne des Brumes">
 
-            <button class="marker city" style="--x:40%;--y:68%" data-point="veyren" type="button" aria-label="Ouvrir la fiche de Veyren" aria-pressed="false">
+            <button class="marker city" style="--x:40%;--y:56%" data-point="veyren" type="button" aria-label="Ouvrir la fiche de Veyren" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Veyren</span>
             </button>
-            <button class="marker city" style="--x:32%;--y:74%" data-point="veyre" type="button" aria-label="Ouvrir la fiche de Veyre" aria-pressed="false">
+            <button class="marker city" style="--x:63%;--y:55%" data-point="veyre" type="button" aria-label="Ouvrir la fiche de Veyre" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Veyre</span>
             </button>
             <button class="marker place" style="--x:8%;--y:52%" data-point="marches" type="button" aria-label="Ouvrir la fiche des Marches" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Les Marches</span>
             </button>
-            <button class="marker mystery" style="--x:7%;--y:65%" data-point="couronne" type="button" aria-label="Ouvrir la fiche de la Couronne" aria-pressed="false">
+            <button class="marker mystery" style="--x:72%;--y:74%" data-point="couronne" type="button" aria-label="Ouvrir la fiche de la Couronne" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">La Couronne</span>
             </button>
             <button class="marker mystery" style="--x:87%;--y:82%" data-point="ile" type="button" aria-label="Ouvrir la fiche de l'île apparue" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Île apparue</span>
             </button>
-            <button class="marker locked" style="--x:45%;--y:8%" data-point="nord" type="button" aria-label="Ouvrir la fiche de la puissance industrielle du Nord" aria-pressed="false">
+            <button class="marker locked" style="--x:47%;--y:16%" data-point="nord" type="button" aria-label="Ouvrir la fiche de la puissance industrielle du Nord" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">Nord industriel</span>
             </button>
-            <button class="marker locked" style="--x:68%;--y:50%" data-point="republique" type="button" aria-label="Ouvrir la fiche de la République marchande" aria-pressed="false">
+            <button class="marker locked" style="--x:61%;--y:48%" data-point="republique" type="button" aria-label="Ouvrir la fiche de la République marchande" aria-pressed="false">
               <span class="marker-icon" aria-hidden="true"></span><span class="marker-label">République marchande</span>
             </button>
             <button class="marker locked" style="--x:87%;--y:20%" data-point="odren" type="button" aria-label="Ouvrir la fiche d’Odren, détails à développer" aria-pressed="false">
@@ -768,7 +768,7 @@
           label:"Capitale maritime",
           lead:"Une capitale plus vieille que les dynasties qui la gouvernent, accumulée en couches autour d’une immense baie.",
           body:"Dense, populaire, bruyante et profondément tournée vers la mer, Veyren est le cœur de la vieille puissance maritime. Son véritable symbole n’est pas le palais mais l’Arsenal, une ville dans la ville où l’on construit, répare et arme les flottes. Le Courant y sert aux nouvelles, aux ordres, aux cargaisons et aux messages privés ; depuis les hauteurs, la Couronne reste visible à l’horizon.",
-          x:40,y:68,kind:"city",published:true,number:"01",index:"A—01"
+          x:40,y:56,kind:"city",published:true,number:"01",index:"A—01"
         },
         veyre: {
           name:"Veyre",
@@ -776,7 +776,7 @@
           label:"Frontière maritime",
           lead:"Une cité maritime ancienne bâtie au contact des falaises, des marées, des vents violents et de la Couronne.",
           body:"Veyre vit avec la Couronne depuis assez longtemps pour avoir transformé le danger en habitudes : marché à marée basse du Bassin des Noyés, Courses du Bord et Nuits de Couronne. Au début du récit, son phare s’éteint. Le gardien disparaît. Le mécanisme continue pourtant de fonctionner sous la falaise.",
-          x:32,y:74,kind:"city",published:true,number:"02",index:"A—02"
+          x:63,y:55,kind:"city",published:true,number:"02",index:"A—02"
         },
         marches: {
           name:"Les Marches",
@@ -792,7 +792,7 @@
           label:"Limite du monde connu",
           lead:"Une ceinture de brumes et de tempêtes marque la limite supposée du monde navigable.",
           body:"Des phares monumentaux jalonnent cette frontière maritime et sécurisent officiellement les routes. Sa nature exacte reste inconnue. Le Codex s’arrête volontairement ici : ce qui existe au-delà n’est pas publié.",
-          x:7,y:65,kind:"mystery",published:true,number:"04",index:"A—04"
+          x:72,y:74,kind:"mystery",published:true,number:"04",index:"A—04"
         },
         ile: {
           name:"L’île apparue",
@@ -808,7 +808,7 @@
           label:"Chantiers du Nord",
           lead:"Une puissance industrielle récente bouleverse l’équilibre naval du monde connu.",
           body:"Ses chantiers construisent plus vite et expérimentent de nouvelles méthodes. Elle n’a pas le prestige de Veyren, mais menace directement sa supériorité technique et navale.",
-          x:45,y:8,kind:"locked",published:true,status:"Repère de situation · canon publié",number:"06",index:"A—06"
+          x:47,y:16,kind:"locked",published:true,status:"Repère de situation · canon publié",number:"06",index:"A—06"
         },
         republique: {
           name:"République marchande de l’Est",
@@ -816,7 +816,7 @@
           label:"Crédit et routes",
           lead:"Une république marchande immensément riche contrôle les dépendances plutôt que les territoires.",
           body:"Elle agit par les prêts, les approvisionnements et l’accès aux routes, davantage que par la conquête directe. Sa richesse lui permet de devenir indispensable tout en laissant les rivalités ouvertes.",
-          x:68,y:50,kind:"locked",published:true,status:"Repère de situation · canon publié",number:"07",index:"A—07"
+          x:61,y:48,kind:"locked",published:true,status:"Repère de situation · canon publié",number:"07",index:"A—07"
         },
         odren: {
           name:"Odren",
